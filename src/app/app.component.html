@@ -1,0 +1,15 @@
+<button
+  (click)="logClick()"
+  class="btn btn-primary"
+>Display Details</button>
+
+<p *ngIf="buttonClicks.length % 2 === 0">Secret Password = tuna</p>
+
+
+<ul>
+  <li
+    *ngFor="let timeStamp of buttonClicks; index as i"
+    [ngStyle]="{backgroundColor: i > 4 ? 'blue' : 'transparent'}"
+    [ngClass]="{lateLog: i > 4}"
+  >{{timeStamp}}</li>
+</ul>
