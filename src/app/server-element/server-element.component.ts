@@ -6,7 +6,7 @@ import {
   DoCheck,
   AfterContentInit,
   AfterContentChecked, AfterViewChecked, AfterViewInit, OnDestroy,
-  ViewChild, ElementRef
+  ViewChild, ElementRef, ContentChild
 } from '@angular/core';
 
 @Component({
@@ -28,6 +28,9 @@ export class ServerElementComponent implements OnInit,
 
   @ViewChild('heading', {static: true}) header: ElementRef;
 
+  @ContentChild('contentParagraph', {static: true})
+  contentParagraph: ElementRef;
+
   constructor() {
     console.log('contructor called');
   }
@@ -39,6 +42,7 @@ export class ServerElementComponent implements OnInit,
   ngOnInit() {
     console.log('ngOnInit called');
     console.log('value for heading at ngOnInit: ', this.header.nativeElement.textContent); // logs nothing as second arg
+    console.log('value for contentParagraph at ngOnInit: ', this.contentParagraph.nativeElement.textContent); // logs nothing as second arg
   }
 
   ngDoCheck() {
@@ -55,7 +59,8 @@ export class ServerElementComponent implements OnInit,
 
   ngAfterViewInit(): void {
     console.log('ngAfterViewInit called');
-    console.log('heading: at ngAfterViewInit', this.header.nativeElement.textContent); // logs the heading as second arg
+    console.log('value for heading at ngAfterViewInit', this.header.nativeElement.textContent); // logs the heading as second arg
+    console.log('value for contentParagraph at ngAfterViewInit', this.contentParagraph.nativeElement.textContent); // logs the heading as second arg
   }
   ngAfterViewChecked(): void {
     console.log('ngAfterViewChecked called');
