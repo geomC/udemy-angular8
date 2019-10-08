@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {NavCat} from './header/header.component';
 
 @Component({
   selector: 'app-root',
@@ -6,4 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  recipesShown = true;
+  shoppingListShown = true;
+
+  onNavigate($event: NavCat) {
+    this.recipesShown = $event === NavCat.RECIPES;
+    this.shoppingListShown = $event === NavCat.SHOPPING_LIST;
+  }
 }
