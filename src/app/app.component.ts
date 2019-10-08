@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 export interface ServerData {
   newServerName: string;
@@ -14,12 +14,16 @@ enum ServerType {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   serverElements = [{
     type: 'server',
     name: 'Testserver',
     content: 'just a test'
   }];
+
+  ngOnInit() {
+    window.setTimeout(() => this.serverElements[0].name = 'changed name', 2000); // trigger onChange again
+  }
 
   onAddServerAdded( serverData: ServerData) {
     this.addServer(ServerType.SERVER, serverData);
@@ -37,4 +41,7 @@ export class AppComponent {
     });
   }
 
+  onDestroyFirstComponent() {
+    this.serverElements.pop();
+  }
 }
