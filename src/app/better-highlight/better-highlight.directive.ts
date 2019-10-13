@@ -5,7 +5,7 @@ import {Directive, HostBinding, HostListener, Input, OnInit} from '@angular/core
 })
 export class BetterHighlightDirective implements OnInit {
   @Input() defaultColor = 'transparent';
-  @Input() highlightColor = '#7CBEDD';
+  @Input('appBetterHighlight') highlightColor = '#7CBEDD';
 
   ngOnInit(): void {
     this.backgroundColor = this.defaultColor;
