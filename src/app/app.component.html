@@ -1,5 +1,6 @@
 <ul>
-  <li *ngFor="let number of numbers" appBetterHighlight>
+  <li *ngFor="let number of numbers"
+      appBetterHighlight [defaultColor]="'yellow'" [highlightColor]="'red'">
     {{number}}
   </li>
 </ul>
