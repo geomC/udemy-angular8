@@ -1,22 +1,17 @@
-import {Directive, ElementRef, HostBinding, HostListener, OnInit, Renderer2} from '@angular/core';
+import {Directive, ElementRef, HostListener, Renderer2} from '@angular/core';
 
 @Directive({
   selector: '[appDropDown]'
 })
-export class DropdownDirective implements OnInit {
+export class DropdownDirective {
 
   private CLASS_NAME = 'open'; // the bootstrap class to toggle
   private toggled = false;
 
-  @HostBinding('classList') classList: DOMTokenList;
-
   constructor(
     private elementRef: ElementRef,
     private renderer: Renderer2
-  ) {}
-
-  ngOnInit(): void {
-    this.classList = this.elementRef.nativeElement.classList;
+  ) {
   }
 
   @HostListener('click') toggleClass($event: Event) {
@@ -25,5 +20,7 @@ export class DropdownDirective implements OnInit {
     } else {
       this.renderer.removeClass(this.elementRef.nativeElement, this.CLASS_NAME);
     }
+
+    this.toggled = !this.toggled;
   }
 }
