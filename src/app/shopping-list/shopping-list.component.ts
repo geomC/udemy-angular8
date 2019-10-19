@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit} from '@angular/core';
 
 import { Ingredient } from '../shared/ingredient.model';
 import {ShoppingListService} from './shopping-list.service';
@@ -14,11 +14,13 @@ export class ShoppingListComponent implements OnInit {
 
   constructor(
     private shoppingListService: ShoppingListService
-  ) { }
+  ) {
+    this.shoppingListService.$ingredientsChanged.subscribe(
+      (ingrdnts: Ingredient[]) => this.ingredients = ingrdnts
+    );
+  }
 
   ngOnInit() {
     this.ingredients = this.shoppingListService.getIngredients();
   }
-
-
 }
