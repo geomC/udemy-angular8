@@ -6,8 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { ActiveUsersComponent } from './active-users/active-users.component';
 import { InactiveUsersComponent } from './inactive-users/inactive-users.component';
-import {UsersService} from './shared/users.service';
-import {CountersService} from './shared/counters.service';
 
 @NgModule({
   declarations: [
@@ -19,7 +17,7 @@ import {CountersService} from './shared/counters.service';
     BrowserModule,
     FormsModule,
   ],
-  providers: [UsersService, CountersService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
