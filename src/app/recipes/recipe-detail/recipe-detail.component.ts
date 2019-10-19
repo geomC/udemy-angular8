@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Recipe } from '../recipe.model';
+import {ShoppingListService} from '../../shopping-list/shopping-list.service';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -10,9 +11,17 @@ import { Recipe } from '../recipe.model';
 export class RecipeDetailComponent implements OnInit {
   @Input() recipe: Recipe;
 
-  constructor() { }
+  constructor(
+    private shoppingListService: ShoppingListService
+  ) { }
 
   ngOnInit() {
   }
 
+  addToShoppingList() {
+    this.recipe.ingredients.map(
+      this.shoppingListService.addIngredient
+        .bind(this.shoppingListService) // make sure service method has the correct scope
+    );
+  }
 }
