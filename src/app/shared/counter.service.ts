@@ -12,9 +12,15 @@ export class CounterService {
 
   countActiveToInactive() {
     ++this.counts.activeToInactive;
+    this.logCount();
   }
 
   countInactiveToActive() {
     ++this.counts.inactiveToActive;
+    this.logCount();
+  }
+
+  logCount() {
+    console.log('Current count: ' + JSON.stringify(this.counts, null, '\t'));
   }
 }
