@@ -14,29 +14,16 @@ import { ServersService } from './servers/servers.service';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {
-    path: '', // index route
-    component: HomeComponent
+  { path: '', component: HomeComponent },
+  { path: 'users', component: UsersComponent, children: [
+      { path: ':id', component: UserComponent },
+    ]
   },
-  {
-    path: 'users', // localhost:4200/users. IMPORTANT: don't prefix route with slash
-    component: UsersComponent
-  },
-  {
-    path: 'users/:id', // id stands for a dynamic path segment. Route kicks in for URLs like users/123
-    component: UserComponent
-  },
-  {
-    path: 'servers',
-    component: ServersComponent
-  },
-  {
-    path: 'servers/:id',
-    component: ServersComponent
-  },
-  {
-    path: 'servers/:id/edit',
-    component: EditServerComponent
+  { path: 'servers', component: ServersComponent, children: [
+      // note that for the child routes we need to add a router outlet in ServersComponent !
+      { path: ':id', component: ServerComponent },
+      { path: ':id/edit', component: EditServerComponent },
+    ]
   },
 ];
 
