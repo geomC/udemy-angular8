@@ -30,6 +30,10 @@ const routes: Routes = [
     path: 'servers',
     component: ServersComponent
   },
+  {
+    path: 'servers/:id/edit',
+    component: ServersComponent
+  },
 ];
 
 @NgModule({

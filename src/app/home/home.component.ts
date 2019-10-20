@@ -19,4 +19,13 @@ export class HomeComponent {
       ['/servers'] // elements of a path
     );
   }
+
+  onLoadServerOne(id: number) {
+    this.router.navigate(['/servers', id, 'edit'],
+      {
+        queryParams: {allowEdit: '1'},
+        fragment: 'loading'
+      },
+    );
+  }
 }
