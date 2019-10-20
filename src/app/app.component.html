@@ -2,9 +2,10 @@
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
       <ul class="nav nav-tabs">
-        <li role="presentation" routerLinkActive="active"><!-- When the route of the routerlink is the active one, it sets
-        the specified class(es). Can be added to the link itself OR the wrapping item like here -->
-          <a routerLink="/">Home</a></li><!-- Problem here is that the index route is always active, when a subrotue is active -->
+        <li role="presentation"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}"><!-- Only add the class if the active route is exactly "/" and not "/some-subroute -->
+          <a routerLink="/">Home</a></li>
         <li role="presentation" routerLinkActive="active">
           <a routerLink="/servers">Servers</a></li>
         <li role="presentation" routerLinkActive="active"
