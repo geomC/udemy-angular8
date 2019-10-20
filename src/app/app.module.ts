@@ -12,6 +12,7 @@ import { EditServerComponent } from './servers/edit-server/edit-server.component
 import { ServerComponent } from './servers/server/server.component';
 import { ServersService } from './servers/servers.service';
 import { RouterModule, Routes } from '@angular/router';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -25,6 +26,14 @@ const routes: Routes = [
       { path: ':id/edit', component: EditServerComponent },
     ]
   },
+  {
+    path: 'not-found', // path under which a 404 feedback component is reachable
+    component: PageNotFoundComponent
+  },
+  {
+    path: '**', // catch all unknown paths not handled by the other routes before. --> here the order matters!
+    redirectTo: 'not-found' // redirect to another path
+  }
 ];
 
 @NgModule({
@@ -35,7 +44,8 @@ const routes: Routes = [
     ServersComponent,
     UserComponent,
     EditServerComponent,
-    ServerComponent
+    ServerComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
