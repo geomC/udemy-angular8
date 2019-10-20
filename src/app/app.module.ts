@@ -20,10 +20,14 @@ const routes: Routes = [
   },
   {
     path: 'users', // localhost:4200/users. IMPORTANT: don't prefix route with slash
+    component: UsersComponent
+  },
+  {
+    path: 'users/:id', // id stands for a dynamic path segment. Route kicks in for URLs like users/123
     component: UserComponent
   },
   {
-    path: 'servers', // localhost:4200/users. IMPORTANT: don't prefix route with slash
+    path: 'servers',
     component: ServersComponent
   },
 ];
