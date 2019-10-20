@@ -31,8 +31,12 @@ const routes: Routes = [
     component: ServersComponent
   },
   {
-    path: 'servers/:id/edit',
+    path: 'servers/:id',
     component: ServersComponent
+  },
+  {
+    path: 'servers/:id/edit',
+    component: EditServerComponent
   },
 ];
 
