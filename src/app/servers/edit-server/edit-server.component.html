@@ -1,4 +1,4 @@
-<div class="form-group">
+<div *ngIf="allowEdit; else unauthorized" class="form-group">
   <label for="name">Server Name</label>
   <input
     type="text"
@@ -19,3 +19,7 @@
 <button
   class="btn btn-primary"
   (click)="onUpdateServer()">Update Server</button>
+
+<ng-template #unauthorized>
+  <h4>You're not allowed to edit!</h4>
+</ng-template>
