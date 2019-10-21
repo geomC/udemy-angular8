@@ -8,6 +8,7 @@ import { EditServerComponent } from './servers/edit-server/edit-server.component
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { NgModule } from '@angular/core';
 import { AuthGuardService } from './auth-guard.service';
+import { CanDeactivateGuardService } from './servers/edit-server/can-deactivate-guard.service';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,7 +23,9 @@ const routes: Routes = [
     children: [
       // note that for the child routes we need to add a router outlet in ServersComponent !
       { path: ':id', component: ServerComponent },
-      { path: ':id/edit', component: EditServerComponent },
+      { path: ':id/edit',
+        component: EditServerComponent,
+        canDeactivate: [CanDeactivateGuardService] },
     ]
   },
   {
