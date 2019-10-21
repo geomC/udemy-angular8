@@ -9,6 +9,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { NgModule } from '@angular/core';
 import { AuthGuardService } from './auth-guard.service';
 import { CanDeactivateGuardService } from './servers/edit-server/can-deactivate-guard.service';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -30,7 +31,10 @@ const routes: Routes = [
   },
   {
     path: 'not-found', // path under which a 404 feedback component is reachable
-    component: PageNotFoundComponent
+    component: ErrorPageComponent,
+    data: {
+      message: 'Page not found!'
+    }
   },
   {
     path: '**', // catch all unknown paths not handled by the other routes before. --> here the order matters!
