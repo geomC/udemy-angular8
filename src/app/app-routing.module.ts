@@ -10,6 +10,7 @@ import { NgModule } from '@angular/core';
 import { AuthGuardService } from './auth-guard.service';
 import { CanDeactivateGuardService } from './servers/edit-server/can-deactivate-guard.service';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { ServerResolverService } from './servers/server/server-resolver.service';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -23,7 +24,9 @@ const routes: Routes = [
     canActivateChild: [AuthGuardService],
     children: [
       // note that for the child routes we need to add a router outlet in ServersComponent !
-      { path: ':id', component: ServerComponent },
+      { path: ':id', component: ServerComponent, resolve: {
+          server: ServerResolverService // map the data returned from the resolver to a custom property name
+        } },
       { path: ':id/edit',
         component: EditServerComponent,
         canDeactivate: [CanDeactivateGuardService] },

@@ -18,15 +18,13 @@ export class ServerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.params.subscribe(
-      this.loadServerBasedOnRouteParams.bind(this)
-    );
+    this.route.data.subscribe(
+      ({ server }) => {
+        this.server = server;
+      });
   }
 
-  private loadServerBasedOnRouteParams(params: Params) {
-    const passedId = +params.id;
-    this.server = this.serversService.getServer(passedId);
-  }
+
 
   onEdit() {
     this.router.navigate(['edit'], {
