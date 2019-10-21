@@ -15,8 +15,10 @@ const routes: Routes = [
       { path: ':id', component: UserComponent },
     ]
   },
-  { path: 'servers', component: ServersComponent,
-    canActivate: [AuthGuardService], // list of Services implementing CanActivate. Route is loaded only if all instances return true
+  { path: 'servers',
+    component: ServersComponent,
+    // list of Services implementing CanActivateChild. Child Routes are loaded only if all instances return true
+    canActivateChild: [AuthGuardService],
     children: [
       // note that for the child routes we need to add a router outlet in ServersComponent !
       { path: ':id', component: ServerComponent },
