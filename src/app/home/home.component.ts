@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,8 @@ import { Router } from '@angular/router';
 export class HomeComponent {
 
   constructor(
-    private router: Router // inject Router
+    private router: Router, // inject Router,
+    private authService: AuthService
   ) {}
 
   onLoadServers() {
@@ -27,5 +29,13 @@ export class HomeComponent {
         fragment: 'loading'
       },
     );
+  }
+
+  onLogin() {
+    this.authService.login();
+  }
+
+  onLogout() {
+    this.authService.logout()
   }
 }
