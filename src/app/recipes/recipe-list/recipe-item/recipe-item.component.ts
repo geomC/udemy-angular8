@@ -13,11 +13,11 @@ export class RecipeItemComponent implements OnInit {
 
   @Input() index: number;
 
-  constructor(
-    private recipeService: RecipeService
-  ) {}
+  constructor() {
+  }
 
   ngOnInit() {
+
   }
 
 }

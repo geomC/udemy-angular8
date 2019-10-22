@@ -13,9 +13,7 @@ export class RecipeListComponent implements OnInit {
   recipes: Recipe[];
 
   constructor(
-    private recipeService: RecipeService,
-    private router: Router,
-    private route: ActivatedRoute
+    private recipeService: RecipeService
   ) {
   }
 
@@ -23,7 +21,4 @@ export class RecipeListComponent implements OnInit {
     this.recipes = this.recipeService.getRecipes();
   }
 
-  routeToRecipe(index: number) {
-    this.router.navigate([index], {relativeTo: this.route});
-  }
 }
