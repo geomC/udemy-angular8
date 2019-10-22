@@ -10,6 +10,7 @@
       *ngFor="let recipeEl of recipes; let i = index;"
       [recipe]="recipeEl"
       (click)="routeToRecipe(i)"
+      [index]="i"
     ></app-recipe-item>
   </div>
 </div>
