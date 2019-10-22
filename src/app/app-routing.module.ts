@@ -22,7 +22,7 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
-        path: 'new',
+        path: 'new', // should be above the id so that it does not get interpreted as ID
         component: RecipeEditComponent
       },
       {
