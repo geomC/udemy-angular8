@@ -22,11 +22,15 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
+        path: 'new',
+        component: RecipeEditComponent
+      },
+      {
         path: ':id',
         component: RecipeDetailComponent
       },
       {
-        path: 'new',
+        path: ':id/edit',
         component: RecipeEditComponent
       }
     ]
