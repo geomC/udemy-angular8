@@ -16,6 +16,15 @@ export class AppComponent {
     'female',
     'diverse'
   ];
+  private submitted = false;
+
+  user = {
+    username: '',
+    email: '',
+    secretQuestion: '',
+    gender: '',
+    answer: '',
+  };
 
   suggestUserName() {
     const suggestedName = 'Superuser';
@@ -26,6 +35,16 @@ export class AppComponent {
   }
 
   onSubmit(form: NgForm) {
-    console.log(this.signupForm);
+    // some async logic ..
+    this.submitted = true;
+
+    this.user.username = this.signupForm.value.userData.username;
+    this.user.email = this.signupForm.value.userData.email;
+    this.user.secretQuestion = this.signupForm.value.secretQuestion;
+    this.user.secretQuestion = this.signupForm.value.secret;
+    this.user.answer = this.signupForm.value.questionAnswer;
+    this.user.gender = this.signupForm.value.gender;
+
+    this.signupForm.reset();
   }
 }
