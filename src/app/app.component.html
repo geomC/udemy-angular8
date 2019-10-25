@@ -31,6 +31,7 @@
               #email="ngModel"
             ><!-- email is also a NG built-in validator -->
             <span
+
               class="help-block"
               *ngIf="email.touched && !email.valid"
             >Please enter a valid email</span>
@@ -41,7 +42,7 @@
           <select
             id="secret"
             class="form-control"
-            ngModel
+            [ngModel]="defaultQuestion"
             name="secret"
           >
             <option value="pet">Your first Pet?</option>
