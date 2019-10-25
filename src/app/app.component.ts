@@ -10,11 +10,19 @@ export class AppComponent implements OnInit {
 
   projectsForm: FormGroup;
 
-  private projectStates = ['Stable', 'Critical', 'Finished'];
+  projectStates = ['Stable', 'Critical', 'Finished'];
+
+  forbiddenProjectName = 'Test';
+
+  restrictProjectName(control: FormControl): { [s: string]: boolean } {
+    return control.value === this.forbiddenProjectName && {
+      'projectNameRestricted': true
+    }; // if validation is successfull (name is not forbidden) return undefined
+  }
 
   ngOnInit() {
     this.projectsForm = new FormGroup({
-      'name': new FormControl(null, V.required),
+      'name': new FormControl(null, [V.required, this.restrictProjectName.bind(this)]),
       'email': new FormControl(null, [V.required, V.email]),
       'status': new FormControl(this.projectStates[0])
     });
