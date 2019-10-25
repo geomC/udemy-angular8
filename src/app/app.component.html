@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+
+      <form [formGroup]="projectsForm">
+
+        <div class="form-group">
+          <label>
+            Projektname
+            <input
+              type="text"
+              formControlName="name"
+            >
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label>
+            Email
+            <input
+              type="text"
+              formControlName="email"
+            >
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label>
+            Projekt Status
+            <select
+              formControlName="status"
+            >
+              <option
+                *ngFor="let projectState of projectStates"
+                [value]="projectState">{{projectState}}</option>
+            </select>
+          </label>
+        </div>
+
+        <button class="btn btn-primary"
+                type="submit"
+                [disabled]="!projectsForm.valid"
+                (click)="submit()"
+        >SUBMIT
+        </button>
+
+      </form>
+    </div>
+  </div>
+</div>

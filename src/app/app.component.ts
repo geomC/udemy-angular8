@@ -16,9 +16,17 @@ export class AppComponent implements OnInit {
     this.projectsForm = new FormGroup({
       'name': new FormControl(null, V.required),
       'email': new FormControl(null, [V.required, V.email]),
-      'status': new FormControl(this.projectStates[0],[V.required, V.email])
+      'status': new FormControl(this.projectStates[0])
     });
+
+    // debugging
+    this.projectsForm.statusChanges.subscribe(console.log.bind(console));
+    this.projectsForm.valueChanges.subscribe(console.log.bind(console));
+
   }
 
 
+  submit() {
+    console.log(this.projectsForm);
+  }
 }
