@@ -11,6 +11,11 @@ export class AppComponent {
   @ViewChild('f', {static: true}) signupForm: NgForm;
   defaultQuestion = 'pet';
   answer = '';
+  genders = [
+    'male',
+    'female',
+    'diverse'
+  ];
 
   suggestUserName() {
     const suggestedName = 'Superuser';
@@ -18,6 +23,5 @@ export class AppComponent {
 
   onSubmit(form: NgForm) {
     console.log(this.signupForm);
-    form.reset();
   }
 }

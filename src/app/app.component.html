@@ -64,7 +64,21 @@
             rows="3"
             [(ngModel)]="answer"
           ></textarea>
-          <p>Your Reply: {{ answer }}</p>
+        </div>
+
+        <p>Your Reply: {{ answer }}</p>
+
+        <div class="radio" *ngFor="let g of genders">
+         <label>
+
+          <input
+            type="radio"
+            name="gender"
+            ngModel
+            [value]="g"
+          >
+           {{g}}
+         </label>
         </div>
 
         <button
