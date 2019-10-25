@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
 
 import { AppComponent } from './app.component';
-import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,7 @@ import {ReactiveFormsModule} from '@angular/forms';
   ],
   imports: [
     BrowserModule,
-    ReactiveFormsModule // contains all the tools the generate the form
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

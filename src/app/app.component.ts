@@ -1,23 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
-  genders = ['male', 'female', 'diverse'];
-
-  signupForm: FormGroup;
-
-  ngOnInit() {
-    this.signupForm = new FormGroup({
-      'username': new FormControl(null), // wrapped in strings so it does not get mangled during minifcation
-      'email': new FormControl(null),
-      'gender': new FormControl(this.genders[1])
-    });
-  }
-
-
+export class AppComponent {
+  genders = ['male', 'female'];
 }
