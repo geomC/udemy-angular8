@@ -13,6 +13,29 @@ export class AppComponent implements OnInit {
 
   forbiddenUsernames = ['Chris', 'Anna'];
 
+  ngOnInit() {
+    this.signupForm = new FormGroup({
+      userData: new FormGroup({ // nested FormGroup
+        username: new FormControl(null,
+          [Validators.required, this.validateUserName.bind(this)]),
+        email: new FormControl(null,
+          [Validators.required, Validators.email],
+          this.validateEmailAsync // here also an array can be used
+        ),
+      }),
+      gender: new FormControl(this.genders[1]),
+      hobbies: new FormArray([])
+    });
+
+    this.signupForm.valueChanges.subscribe(
+      value => console.log(value)
+    );
+
+    this.signupForm.statusChanges.subscribe(
+      status => console.log(status)
+    );
+  }
+
   validateUserName(control: FormControl): {[s: string]: boolean} { // func returns ab object where each value is a boolean
     if (this.forbiddenUsernames.includes(control.value)) {
       return {nameIsForbidden: true};
@@ -36,21 +59,6 @@ export class AppComponent implements OnInit {
 
   get hobbieControls() {
     return (this.signupForm.get('hobbies') as FormArray).controls;
-  }
-
-  ngOnInit() {
-    this.signupForm = new FormGroup({
-      userData: new FormGroup({ // nested FormGroup
-        username: new FormControl(null,
-          [Validators.required, this.validateUserName.bind(this)]),
-        email: new FormControl(null,
-          [Validators.required, Validators.email],
-          this.validateEmailAsync // here also an array can be used
-          ),
-      }),
-      gender: new FormControl(this.genders[1]),
-      hobbies: new FormArray([])
-    });
   }
 
 
