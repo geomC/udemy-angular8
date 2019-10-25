@@ -4,7 +4,9 @@
       <!-- ${localReference}="ngForm" tells angular to pass the
       js object holding the form state -->
       <form (ngSubmit)="onSubmit(f)" #f="ngForm">
-        <div id="user-data">
+        <div id="user-data"
+             ngModelGroup="userData"
+              #userData="ngModelGroup">
           <div class="form-group">
             <label for="username">Username</label>
             <input
@@ -37,6 +39,12 @@
             >Please enter a valid email</span>
           </div>
         </div>
+        <span
+          class="help-block"
+          *ngIf="!userData.valid"
+        >
+          User data is invalid
+        </span>
         <div class="form-group">
           <label for="secret">Secret Questions</label>
           <select
