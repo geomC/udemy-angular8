@@ -12,9 +12,11 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.signupForm = new FormGroup({
-      'username': new FormControl(null,
-        Validators.required), // dont call the validation method! It gets called by NG whenever the input updates.
-      'email': new FormControl(null, [Validators.required, Validators.email]), // a list of funcs can be passed
+      'userData': new FormGroup({ // nested FormGroup
+        'username': new FormControl(null,
+          Validators.required), // dont call the validation method! It gets called by NG whenever the input updates.
+        'email': new FormControl(null, [Validators.required, Validators.email]), // a list of funcs can be passed
+      }),
       'gender': new FormControl(this.genders[1])
     });
   }

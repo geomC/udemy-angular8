@@ -6,30 +6,32 @@
         [formGroup]="signupForm"
         (ngSubmit)="onSubmit()"
       >
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            formControlName="username"
-            class="form-control">
-          <span
-            *ngIf="signupForm.get('username').touched &&
-            signupForm.get('username').invalid"
-            class="help-block">Please enter a valid Username</span>
-        </div>
-        <div class="form-group">
-          <label for="email">email</label>
-          <input
-            type="text"
-            id="email"
-            class="form-control"
-            formControlName="email"
-          >
-          <span
-            *ngIf="signupForm.get('email').touched &&
-            signupForm.get('email').invalid"
-            class="help-block">Please enter a valid Email</span>
+        <div formGroupName="userData"><!-- tells NG to use a node inside the form state object as base  -->
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              formControlName="username"
+              class="form-control">
+            <span
+              *ngIf="signupForm.get('userData.username').touched &&
+            signupForm.get('userData.username').invalid"
+              class="help-block">Please enter a valid Username</span>
+          </div>
+          <div class="form-group">
+            <label for="email">email</label>
+            <input
+              type="text"
+              id="email"
+              class="form-control"
+              formControlName="email"
+            >
+            <span
+              *ngIf="signupForm.get('userData.email').touched &&
+            signupForm.get('userData.email').invalid"
+              class="help-block">Please enter a valid Email</span>
+          </div>
         </div>
         <div class="radio" *ngFor="let gender of genders">
           <label>
