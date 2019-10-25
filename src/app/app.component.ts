@@ -10,6 +10,15 @@ export class AppComponent implements OnInit {
   genders = ['male', 'female'];
   private signupForm: FormGroup;
 
+  forbiddenUsernames = ['Chris', 'Anna'];
+
+  validateUserName(control: FormControl): {[s: string]: boolean} { // func returns ab object where each value is a boolean
+    if (this.forbiddenUsernames.includes(control.value)) {
+      return {'nameIsForbidden': true};
+    }
+    // if invalid return null or undefined here
+  }
+
   get hobbieControls() {
     return (this.signupForm.get('hobbies') as FormArray).controls;
   }
@@ -18,8 +27,8 @@ export class AppComponent implements OnInit {
     this.signupForm = new FormGroup({
       'userData': new FormGroup({ // nested FormGroup
         'username': new FormControl(null,
-          Validators.required), // dont call the validation method! It gets called by NG whenever the input updates.
-        'email': new FormControl(null, [Validators.required, Validators.email]), // a list of funcs can be passed
+          [Validators.required, this.validateUserName.bind(this)]),
+        'email': new FormControl(null, [Validators.required, Validators.email]),
       }),
       'gender': new FormControl(this.genders[1]),
       'hobbies': new FormArray([])
