@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -14,9 +15,23 @@ export class AppComponent implements OnInit {
 
   validateUserName(control: FormControl): {[s: string]: boolean} { // func returns ab object where each value is a boolean
     if (this.forbiddenUsernames.includes(control.value)) {
-      return {'nameIsForbidden': true};
+      return {nameIsForbidden: true};
     }
-    // if invalid return null or undefined here
+    // if valid return null or undefined here
+  }
+
+  validateEmailAsync(control: FormControl): Promise<any> | Observable<any> {
+      return new Promise<any>((resolve, reject) => {
+        setTimeout(() => {
+          if (control.value === 'test@test.com') {
+            resolve({
+              emailIsForbidden: true
+            });
+          } else {
+            resolve(null);
+          }
+        }, 1500);
+      });
   }
 
   get hobbieControls() {
@@ -25,13 +40,16 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.signupForm = new FormGroup({
-      'userData': new FormGroup({ // nested FormGroup
-        'username': new FormControl(null,
+      userData: new FormGroup({ // nested FormGroup
+        username: new FormControl(null,
           [Validators.required, this.validateUserName.bind(this)]),
-        'email': new FormControl(null, [Validators.required, Validators.email]),
+        email: new FormControl(null,
+          [Validators.required, Validators.email],
+          this.validateEmailAsync // here also an array can be used
+          ),
       }),
-      'gender': new FormControl(this.genders[1]),
-      'hobbies': new FormArray([])
+      gender: new FormControl(this.genders[1]),
+      hobbies: new FormArray([])
     });
   }
 
