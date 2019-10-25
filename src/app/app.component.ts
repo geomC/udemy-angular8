@@ -20,7 +20,7 @@ export class AppComponent {
 
   submit(f: NgForm) {
     const formState = f.value;
-    this.formStatePrint = JSON.stringify(formState, null, `t`);
+    this.formStatePrint = JSON.stringify(formState, null, `\t`);
     console.log(`FORM STATE: ${ this.formStatePrint}`);
     f.reset();
   }
