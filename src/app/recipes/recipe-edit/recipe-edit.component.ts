@@ -40,6 +40,10 @@ export class RecipeEditComponent implements OnInit {
 
   }
 
+  get ingredientControls() {
+    return (this.recipeForm.get('ingredients') as FormArray).controls;
+  }
+
   private initForm() {
     let recipeName = '';
     let recipeImagePath = '';
@@ -67,7 +71,7 @@ export class RecipeEditComponent implements OnInit {
       'name': new FormControl(recipeName),
       'imagePath': new FormControl(recipeImagePath),
       'description': new FormControl(recipeDescription),
-      'recipeIngredients': recipeIngredients
+      'ingredients': recipeIngredients
     });
   }
 }
