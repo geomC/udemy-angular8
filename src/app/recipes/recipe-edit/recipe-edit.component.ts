@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators as V } from '@angular/forms';
 import { RecipeService } from '../recipe.service';
 
 @Component({
@@ -18,6 +18,10 @@ export class RecipeEditComponent implements OnInit {
     private route: ActivatedRoute,
     private recipeService: RecipeService
   ) {
+  }
+
+  get ingredientControls() {
+    return (this.recipeForm.get('ingredients') as FormArray).controls;
   }
 
   ngOnInit() {
@@ -40,8 +44,14 @@ export class RecipeEditComponent implements OnInit {
 
   }
 
-  get ingredientControls() {
-    return (this.recipeForm.get('ingredients') as FormArray).controls;
+  onAddIngredient() {
+    (this.recipeForm.get('ingredients') as FormArray).push(new FormGroup({
+      'name': new FormControl(null, V.required),
+      'amount': new FormControl(1, [
+        V.required,
+        V.min(1)
+      ])
+    }));
   }
 
   private initForm() {
@@ -59,8 +69,11 @@ export class RecipeEditComponent implements OnInit {
         recipe.ingredients.forEach(
           ing => {
             const formGroup = new FormGroup({
-              'name': new FormControl(ing.name),
-              'amount': new FormControl(ing.amount)
+              'name': new FormControl(ing.name, V.required),
+              'amount': new FormControl(ing.amount, [
+                V.required,
+                V.min(1)
+              ])
             });
             recipeIngredients.push(formGroup);
           });
@@ -68,17 +81,10 @@ export class RecipeEditComponent implements OnInit {
     }
 
     this.recipeForm = new FormGroup({
-      'name': new FormControl(recipeName),
-      'imagePath': new FormControl(recipeImagePath),
+      'name': new FormControl(recipeName, V.required),
+      'imagePath': new FormControl(recipeImagePath, V.required),
       'description': new FormControl(recipeDescription),
       'ingredients': recipeIngredients
     });
-  }
-
-  onAddIngredient() {
-    (this.recipeForm.get('ingredients') as FormArray).push(new FormGroup({
-      'name': new FormControl(),
-      'amount': new FormControl()
-    }))
   }
 }
