@@ -46,6 +46,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
     } else {
       this.addItem(newIngredient);
     }
+    this.resetForm();
   }
 
   private addItem(newIngredient: Ingredient) {
@@ -58,5 +59,10 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.startEditSub.unsubscribe();
+  }
+
+  private resetForm() {
+    this.slForm.reset();
+    this.editMode = false;
   }
 }
