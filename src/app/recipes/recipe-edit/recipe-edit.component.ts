@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { FormArray, FormControl, FormGroup, Validators as V } from '@angular/forms';
 import { RecipeService } from '../recipe.service';
+import { Recipe } from '../recipe.model';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -41,7 +42,18 @@ export class RecipeEditComponent implements OnInit {
   }
 
   submitForm() {
-
+    const formValues = this.recipeForm.value;
+    // const recipe = new Recipe(
+    //   formValues['name'],
+    //   formValues['description'],
+    //   formValues['imagePath'],
+    //   formValues['ingredients']
+    // ); we dont need this! the object stored by the form should be a valid recipe!
+    if (this.editMode) {
+      this.recipeService.updateRecipe(this.id, formValues as Recipe);
+    } else {
+      this.recipeService.addRecipe(formValues as Recipe);
+    }
   }
 
   onAddIngredient() {
