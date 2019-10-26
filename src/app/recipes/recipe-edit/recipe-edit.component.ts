@@ -43,12 +43,6 @@ export class RecipeEditComponent implements OnInit {
 
   submitForm() {
     const formValues = this.recipeForm.value;
-    // const recipe = new Recipe(
-    //   formValues['name'],
-    //   formValues['description'],
-    //   formValues['imagePath'],
-    //   formValues['ingredients']
-    // ); we dont need this! the object stored by the form should be a valid recipe!
     if (this.editMode) {
       this.recipeService.updateRecipe(this.id, formValues as Recipe);
     } else {
