@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {noUndefined} from '@angular/compiler/src/util';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -11,12 +12,16 @@ export class RecipeEditComponent implements OnInit {
 
   id: number;
   editMode = false;
+  recipeForm: FormGroup;
 
   constructor(
     private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
+    this.recipeForm = new FormGroup()
+
+
     this.route.params.subscribe(
       ({ id }: Params) => {
         this.id = +id;
@@ -25,4 +30,11 @@ export class RecipeEditComponent implements OnInit {
     );
   }
 
+  clearForm() {
+
+  }
+
+  submitForm() {
+
+  }
 }
