@@ -3,7 +3,6 @@ import { Post } from './post.model';
 import { PostsService } from './posts.service';
 
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,7 +14,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private postsService: PostsService
-    ) {
+  ) {
   }
 
   ngOnInit() {
@@ -28,7 +27,7 @@ export class AppComponent implements OnInit {
       .subscribe(() => {
         this.isFetching = false;
         this.fetchPosts();
-    });
+      });
   }
 
   onFetchPosts() {
@@ -36,13 +35,18 @@ export class AppComponent implements OnInit {
   }
 
   onClearPosts() {
-    // Send Http request
+    this.isFetching = true;
+    this.postsService.deletePosts()
+      .subscribe(() => {
+        this.isFetching = false;
+        this.fetchPosts();
+      });
   }
 
   private fetchPosts() {
     this.isFetching = true;
     this.postsService.fetchposts()
-      .subscribe( (posts) => {
+      .subscribe((posts) => {
         this.loadedPosts = posts;
         this.isFetching = false;
       });

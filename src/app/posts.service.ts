@@ -16,20 +16,25 @@ export class PostsService {
   ) {
   }
 
+  fetchposts(): Observable<Post[]> {
+    return this.http.get<{ [key: string]: Post }> // set the response body type by making usage of the generic character of get
+    (this.FIREBASE_ENDPOINT_URL)
+      .pipe(
+        map((responseData) => !responseData ? [] : Object.keys(responseData)
+          // data is a nested object, we want to store it as array
+            .map(internalIdKey => ({...responseData[internalIdKey], id: internalIdKey}))
+        )
+      );
+  }
+
   createPost(post: Post): Observable<any> {
     // Send Http request
     return this.http
       .post(this.FIREBASE_ENDPOINT_URL, post);
   }
 
-  fetchposts(): Observable<Post[]> {
-    return this.http.get<{ [key: string]: Post }> // set the response body type by making usage of the generic character of get
-    (this.FIREBASE_ENDPOINT_URL)
-      .pipe(
-        map((responseData) => Object.keys(responseData)
-          // data is a nested object, we want to store it as array
-            .map(internalIdKey => ({...responseData[internalIdKey], id: internalIdKey}))
-        )
-      );
+
+  deletePosts(): Observable<any>  {
+    return this.http.delete(this.FIREBASE_ENDPOINT_URL);
   }
 }
