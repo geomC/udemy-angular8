@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Post } from './post.model';
 import { PostsService } from './posts.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -11,6 +12,7 @@ import { PostsService } from './posts.service';
 export class AppComponent implements OnInit {
   loadedPosts: Post[] = [];
   isFetching = false;
+  error = null;
 
   constructor(
     private postsService: PostsService
@@ -27,7 +29,7 @@ export class AppComponent implements OnInit {
       .subscribe(() => {
         this.isFetching = false;
         this.fetchPosts();
-      });
+      }, this.handleError.bind(this));
   }
 
   onFetchPosts() {
@@ -40,7 +42,7 @@ export class AppComponent implements OnInit {
       .subscribe(() => {
         this.isFetching = false;
         this.fetchPosts();
-      });
+      }, this.handleError.bind(this));
   }
 
   private fetchPosts() {
@@ -49,6 +51,12 @@ export class AppComponent implements OnInit {
       .subscribe((posts) => {
         this.loadedPosts = posts;
         this.isFetching = false;
-      });
+      }, this.handleError.bind(this));
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    this.error = {
+      401: 'Post konnte nicht gespeichert werden'
+    }[error.status] || 'Technischer Fehler';
   }
 }
