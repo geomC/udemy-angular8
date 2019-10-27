@@ -15,6 +15,7 @@ interface Post {
 })
 export class AppComponent implements OnInit {
   loadedPosts: Post[] = [];
+  isFetching = false;
 
   FIREBASE_ENDPOINT_URL = 'https://udemy-angular8-course-backend.firebaseio.com/posts.json';
 
@@ -28,11 +29,12 @@ export class AppComponent implements OnInit {
   }
 
   onCreatePost(postData: Post) {
+    this.isFetching = true;
     // Send Http request
     this.http
       .post(this.FIREBASE_ENDPOINT_URL, postData)
       // if no subscription is configured, no request is sent
-      .subscribe(responseData => { // ng extracts the response data if not configured otherwose
+      .subscribe(responseData => { // ng extracts the response data if not configured otherwise
         this.fetchPosts();
       });
     // no unsubscribe in component teardown necessary since the observable is baked-in in N
@@ -47,6 +49,7 @@ export class AppComponent implements OnInit {
   }
 
   private fetchPosts() {
+    this.isFetching = true;
     this.http.get<{[key: string]: Post}> // set the response body type by making usage of the generic character of get
     (this.FIREBASE_ENDPOINT_URL)
       .pipe(
@@ -58,6 +61,7 @@ export class AppComponent implements OnInit {
       .subscribe( (posts) => {
         console.log(posts);
         this.loadedPosts = posts;
+        this.isFetching = false;
       });
   }
 }
