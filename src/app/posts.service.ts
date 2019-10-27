@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { catchError, map } from 'rxjs/operators';
 import { Post } from './post.model';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +22,14 @@ export class PostsService {
       .pipe(
         map((responseData) => !responseData ? [] : Object.keys(responseData)
           // data is a nested object, we want to store it as array
-            .map(internalIdKey => ({...responseData[internalIdKey], id: internalIdKey}))
-        )
+            .map(internalIdKey => ({...responseData[internalIdKey], id: internalIdKey})),
+        ),
+        catchError((errorRes: HttpErrorResponse) => {
+          // log error, reach out to analytics or something else..
+
+          // re-throw so the subscribe call is reached
+          return throwError(errorRes);
+        })
       );
   }
 
@@ -34,7 +40,7 @@ export class PostsService {
   }
 
 
-  deletePosts(): Observable<any>  {
+  deletePosts(): Observable<any> {
     return this.http.delete(this.FIREBASE_ENDPOINT_URL);
   }
 }
