@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
       .post(this.FIREBASE_ENDPOINT_URL, postData)
       // if no subscription is configured, no request is sent
       .subscribe(responseData => { // ng extracts the response data if not configured otherwose
-        console.log(responseData);
+        this.fetchPosts();
       });
     // no unsubscribe in component teardown necessary since the observable is baked-in in N
   }
