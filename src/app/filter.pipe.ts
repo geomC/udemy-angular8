@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'filter'
+  name: 'filter',
+  pure: false // disables NGs default behaviour to not run the pipe when the input object or array is changed
 })
 export class FilterPipe implements PipeTransform {
 
@@ -10,7 +11,7 @@ export class FilterPipe implements PipeTransform {
     filterString: string,
     propName: string
   ): any {
-    if (!list.length) {
+    if (!list.length || !filterString.length) {
       return list;
     }
     return list
