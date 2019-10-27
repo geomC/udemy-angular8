@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { Post } from './post.model';
+import { PostsService } from './posts.service';
 
-interface Post {
-  title: string;
-  content: string;
-  id?: string;
-}
+
 
 @Component({
   selector: 'app-root',
@@ -17,11 +13,9 @@ export class AppComponent implements OnInit {
   loadedPosts: Post[] = [];
   isFetching = false;
 
-  FIREBASE_ENDPOINT_URL = 'https://udemy-angular8-course-backend.firebaseio.com/posts.json';
-
   constructor(
-    private http: HttpClient
-  ) {
+    private postsService: PostsService
+    ) {
   }
 
   ngOnInit() {
@@ -30,14 +24,11 @@ export class AppComponent implements OnInit {
 
   onCreatePost(postData: Post) {
     this.isFetching = true;
-    // Send Http request
-    this.http
-      .post(this.FIREBASE_ENDPOINT_URL, postData)
-      // if no subscription is configured, no request is sent
-      .subscribe(responseData => { // ng extracts the response data if not configured otherwise
+    this.postsService.createPost(postData)
+      .subscribe(() => {
+        this.isFetching = false;
         this.fetchPosts();
-      });
-    // no unsubscribe in component teardown necessary since the observable is baked-in in N
+    });
   }
 
   onFetchPosts() {
@@ -50,16 +41,8 @@ export class AppComponent implements OnInit {
 
   private fetchPosts() {
     this.isFetching = true;
-    this.http.get<{[key: string]: Post}> // set the response body type by making usage of the generic character of get
-    (this.FIREBASE_ENDPOINT_URL)
-      .pipe(
-        map( (responseData) => Object.keys(responseData)
-          // data is a nested object, we want to store it as array
-            .map(internalIdKey => ({ ...responseData[internalIdKey], id: internalIdKey}))
-        )
-      )
+    this.postsService.fetchposts()
       .subscribe( (posts) => {
-        console.log(posts);
         this.loadedPosts = posts;
         this.isFetching = false;
       });
