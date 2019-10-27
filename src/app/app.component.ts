@@ -55,8 +55,13 @@ export class AppComponent implements OnInit {
   }
 
   private handleError(error: HttpErrorResponse) {
+    this.isFetching = false;
     this.error = {
       401: 'Post konnte nicht gespeichert werden'
     }[error.status] || 'Technischer Fehler';
+  }
+
+  onHandleError() {
+    this.error = null;
   }
 }
