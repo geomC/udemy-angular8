@@ -7,11 +7,13 @@ export class AuthInterceptorService implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    // code running right before the request is fired;
-    console.log('request is on its way', req);
+    // the request object itself is immutable
+    const modifiedRequest = req.clone({
+      // override props of the object here
+      headers: req.headers.append('Authkey', 'xyz')
+    });
 
-    // do some side effect like logging
-    return next.handle(req); // let the request continue its journey
+    return next.handle(modifiedRequest); // let the request continue its journey
   }
 
 }
