@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
-import { catchError, map } from 'rxjs/operators';
-import { Post } from './post.model';
-import { Observable, throwError } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
+import {catchError, map} from 'rxjs/operators';
+import {Post} from './post.model';
+import {Observable, throwError} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +20,8 @@ export class PostsService {
     let queryParams = new HttpParams(); // HttpParams is immutable ..
     queryParams = queryParams.append('print', 'pretty'); // .. so we re-assign the variable for each key-value-pair
     queryParams = queryParams.append('custom', 'key');
-    return this.http.get<{ [key: string]: Post }> ( // set the response body type by making usage of the generic character of get
-    this.FIREBASE_ENDPOINT_URL,
+    return this.http.get<{ [key: string]: Post }>( // set the response body type by making usage of the generic character of get
+      this.FIREBASE_ENDPOINT_URL,
       {
         params: queryParams
       })
@@ -42,11 +42,14 @@ export class PostsService {
   createPost(post: Post): Observable<any> {
     // Send Http request
     return this.http
-      .post(this.FIREBASE_ENDPOINT_URL, post, {
-        headers: new HttpHeaders({
-          'Custom-Header': 'Post'
-        })
-      });
+      .post(
+        this.FIREBASE_ENDPOINT_URL,
+        post,
+        // {
+        //   observe: 'response' // subscribe gets the full HttpResponse object with params like body, status or headers
+        // }
+      );
+
   }
 
 
