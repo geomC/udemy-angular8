@@ -9,11 +9,14 @@ import { RecipeService } from '../recipes/recipe.service';
 export class DataStorageService {
   constructor(private http: HttpClient, private recipeService: RecipeService) {}
 
+  FIREBASE_ENDPOINT_URL = 'https://ng-course-recipebook-adb30.firebaseio.com/' +
+    'recipes.json';
+
   storeRecipes() {
     const recipes = this.recipeService.getRecipes();
     this.http
       .put(
-        'https://ng-course-recipe-book-65f10.firebaseio.com/recipes.json',
+        this.FIREBASE_ENDPOINT_URL,
         recipes
       )
       .subscribe(response => {
@@ -24,7 +27,7 @@ export class DataStorageService {
   fetchRecipes() {
     return this.http
       .get<Recipe[]>(
-        'https://ng-course-recipe-book-65f10.firebaseio.com/recipes.json'
+        this.FIREBASE_ENDPOINT_URL
       )
       .pipe(
         map(recipes => {
