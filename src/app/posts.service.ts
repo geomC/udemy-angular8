@@ -56,7 +56,8 @@ export class PostsService {
   deletePosts(): Observable<any> {
     return this.http
       .delete(this.FIREBASE_ENDPOINT_URL, {
-        observe: 'events' // this enables us to do something with the response without disturbing the observers
+        observe: 'events', // this enables us to do something with the response without disturbing the observers
+        // responseType: 'text' // don't try to parse and return json
       })
       .pipe(
         // add a side-effect using tap
