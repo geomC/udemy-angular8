@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { Post } from './post.model';
 import { Observable, throwError } from 'rxjs';
@@ -17,8 +17,14 @@ export class PostsService {
   }
 
   fetchposts(): Observable<Post[]> {
-    return this.http.get<{ [key: string]: Post }> // set the response body type by making usage of the generic character of get
-    (this.FIREBASE_ENDPOINT_URL)
+    let queryParams = new HttpParams(); // HttpParams is immutable ..
+    queryParams = queryParams.append('print', 'pretty'); // .. so we re-assign the variable for each key-value-pair
+    queryParams = queryParams.append('custom', 'key');
+    return this.http.get<{ [key: string]: Post }> ( // set the response body type by making usage of the generic character of get
+    this.FIREBASE_ENDPOINT_URL,
+      {
+        params: queryParams
+      })
       .pipe(
         map((responseData) => !responseData ? [] : Object.keys(responseData)
           // data is a nested object, we want to store it as array
@@ -36,7 +42,11 @@ export class PostsService {
   createPost(post: Post): Observable<any> {
     // Send Http request
     return this.http
-      .post(this.FIREBASE_ENDPOINT_URL, post);
+      .post(this.FIREBASE_ENDPOINT_URL, post, {
+        headers: new HttpHeaders({
+          'Custom-Header': 'Post'
+        })
+      });
   }
 
 
