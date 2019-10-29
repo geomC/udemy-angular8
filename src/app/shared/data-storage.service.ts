@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {Recipe} from '../recipes/recipe.model';
 import {HttpClient} from '@angular/common/http';
 import {RecipeService} from '../recipes/recipe.service';
-import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,12 +18,21 @@ export class DataStorageService {
   }
 
   storeRecipes() {
-      const recipes = this.recipeService.getRecipes();
-      this.http.put( // firebase treats a PUT request so that all data is overridden
-        this.FIREBASE_ENDPOINT_URL,
-        recipes
-      ).subscribe( // otherwise the request is not fired. subscription is usually done in components to update the UI
-        res => console.log(res)
+    const recipes = this.recipeService.getRecipes();
+    this.http.put( // firebase treats a PUT request so that all data is overridden
+      this.FIREBASE_ENDPOINT_URL,
+      recipes
+    ).subscribe( // otherwise the request is not fired. subscription is usually done in components to update the UI
+      res => console.log(res)
+    );
+  }
+
+  fetchData() {
+    this.http.get<Recipe[]>(this.FIREBASE_ENDPOINT_URL)
+      .subscribe(
+        (recipes) => {
+          this.recipeService.setRecipes(recipes);
+        }
       );
   }
 }
