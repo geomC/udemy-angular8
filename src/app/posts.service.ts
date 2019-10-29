@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
-import {catchError, map} from 'rxjs/operators';
+import {HttpClient, HttpErrorResponse, HttpEventType, HttpParams} from '@angular/common/http';
+import {catchError, map, tap} from 'rxjs/operators';
 import {Post} from './post.model';
 import {Observable, throwError} from 'rxjs';
 
@@ -54,6 +54,23 @@ export class PostsService {
 
 
   deletePosts(): Observable<any> {
-    return this.http.delete(this.FIREBASE_ENDPOINT_URL);
+    return this.http
+      .delete(this.FIREBASE_ENDPOINT_URL, {
+        observe: 'events' // this enables us to do something with the response without disturbing the observers
+      })
+      .pipe(
+        // add a side-effect using tap
+        tap(event => {
+          console.log(event);
+          if (event.type === HttpEventType.Sent) {
+            // update UI that we are waiting for a response
+          }
+          if (event.type === HttpEventType // HttpEventType is an enum that helps choosing an event code
+            .Response) {
+            console.log(event.body);
+            // update the UI that the request wen through
+          }
+        })
+      );
   }
 }
