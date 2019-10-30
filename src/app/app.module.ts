@@ -57,6 +57,10 @@ import { PlaceholderDirective } from './shared/placeholder.directive';
       multi: true
     }
   ],
+  entryComponents: [ // component types that are not created
+    // by selector in a template OR in a routing config
+    AlertComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
