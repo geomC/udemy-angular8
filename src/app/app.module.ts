@@ -40,14 +40,14 @@ import { PlaceholderDirective } from './shared/placeholder.directive';
     LoadingSpinnerComponent,
     AlertComponent,
     PlaceholderDirective
-  ],
+  ], // all components, directives and custom pipes
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule
-  ],
+  ], // import stuff from other modules exportd
   providers: [
     ShoppingListService,
     RecipeService,
@@ -56,11 +56,10 @@ import { PlaceholderDirective } from './shared/placeholder.directive';
       useClass: AuthInterceptorService,
       multi: true
     }
-  ],
-  entryComponents: [ // component types that are not created
-    // by selector in a template OR in a routing config
+  ], // all services with root scope
+  entryComponents: [ // component types that are not created by selector in a template OR in a routing config
     AlertComponent
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent] // which component (typically one) is loaded in the index.html file
 })
 export class AppModule {}
