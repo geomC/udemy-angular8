@@ -18,14 +18,6 @@ import { RecipesRoutingModule } from './recipes-routing.module';
     RecipeEditComponent,
     RecipeStartComponent,
   ],
-  exports: [
-    RecipesComponent,
-    RecipeListComponent,
-    RecipeDetailComponent,
-    RecipeItemComponent,
-    RecipeEditComponent,
-    RecipeStartComponent,
-  ],
   imports: [
     RecipesRoutingModule,
     CommonModule, // provides stuff like *ngIf and *ngFor
