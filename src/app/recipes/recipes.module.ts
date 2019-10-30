@@ -5,6 +5,9 @@ import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
 import { RecipeItemComponent } from './recipe-list/recipe-item/recipe-item.component';
 import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
 import { RecipeStartComponent } from './recipe-start/recipe-start.component';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,8 +26,11 @@ import { RecipeStartComponent } from './recipe-start/recipe-start.component';
     RecipeEditComponent,
     RecipeStartComponent,
   ],
-  imports: [],
-
+  imports: [
+    RouterModule,
+    CommonModule, // provides stuff like *ngIf and *ngFor
+    ReactiveFormsModule
+  ]
 })
 export class RecipesModule {
 
