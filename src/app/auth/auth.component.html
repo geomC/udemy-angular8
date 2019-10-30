@@ -4,7 +4,9 @@
 <!--      <p>{{ error }}</p>-->
 <!--    </div>-->
 
-
+    <!-- This will not add an extra elemnet to the dom-->
+    <ng-template appPlaceholder>
+    </ng-template>
 
     <div *ngIf="isLoading" style="text-align: center;">
       <app-loading-spinner></app-loading-spinner>
