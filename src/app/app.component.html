@@ -25,8 +25,8 @@
       <ul class="list-group">
         <li
           class="list-group-item"
-          (click)="onDelete(item)"
-          *ngFor="let item of list">
+          (click)="onDelete(i)"
+          *ngFor="let item of list; let i = index">
           {{ item }}
         </li>
       </ul>
@@ -39,6 +39,7 @@
         <li
           class="list-group-item"
           (click)="onDelete(item)"
+          [@list1]
           *ngFor="let item of list">
           {{ item }}
         </li>
