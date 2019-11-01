@@ -4,10 +4,14 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { PostComponent } from './post/post.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent, PostComponent],
-  imports: [BrowserModule, HttpClientModule],
+  imports: [BrowserModule, HttpClientModule,
+    ServiceWorkerModule.register('ngsw-worker.js', // this file will be aut-generated on build
+      { enabled: environment.production })],
   providers: [],
   bootstrap: [AppComponent]
 })
