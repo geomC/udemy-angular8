@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { state, style, trigger } from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +17,10 @@ import { state, style, trigger } from '@angular/animations';
             backgroundColor: 'blue',
             'transform': 'translateX(100px)'
           })
+        ),
+        transition(
+          'normal => highlighted', // the direction
+            animate(300) // takes number of miliseconds
         )
       ]
     )
