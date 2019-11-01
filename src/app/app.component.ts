@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
+import { animate, group, keyframes, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-root',
@@ -106,10 +106,16 @@ import { animate, keyframes, state, style, transition, trigger } from '@angular/
           ]
         ),
         transition('* => void', [
-            animate(300),
-            style({opacity: 0, transform: 'translateX(100px)'})
-          ]
-        )
+          group([
+            animate(300, style({
+              color: 'red'
+            })),
+            animate(800, style({
+              transform: 'translateX(100px)',
+              opacity: 0,
+            }))
+          ])
+        ])
       ]
     )
   ]
@@ -135,5 +141,13 @@ export class AppComponent {
 
   onDelete(index: number) {
     this.list.splice(index, 1);
+  }
+
+  myCustomMethod() {
+
+  }
+
+  myOtherCustomMethod() {
+
   }
 }
