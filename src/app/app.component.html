@@ -8,6 +8,8 @@
       <div
         style="width: 100px; height: 100px"
         [@divState]="state"
+        (@divState.start)="myCustomMethod()"
+        (@divState.done)="myOtherCustomMethod()"
       ></div>
       <br>
       <div
