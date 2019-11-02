@@ -25,7 +25,30 @@ describe('UserComponent', () => {
       .componentInstance;
     // run change detection to update the template after the service is injected
     fixture.detectChanges();
-    let userService = fixture.debugElement.injector.get(UserService)
+    let userService = fixture.debugElement.injector.get(UserService);
     expect(userService.user.name).toEqual(app.user.name);
   });
+
+  it('should display the username if the user is logged in', () => {
+    let fixture = TestBed.createComponent(UserComponent);
+    let app = fixture.debugElement // the element exposed to us for testing purposes
+      .componentInstance;
+    app.isLoggedIn = true;
+    // run change detection to update the template after the service is injected
+    fixture.detectChanges();
+    let compiledTemplate = fixture.debugElement.nativeElement;
+    expect(compiledTemplate.querySelector('p').textContent).toContain(app.user.name);
+  });
+
+  it('should display the username if the user is not logged in', () => {
+    let fixture = TestBed.createComponent(UserComponent);
+    let app = fixture.debugElement // the element exposed to us for testing purposes
+      .componentInstance;
+    // run change detection to update the template after the service is injected
+    fixture.detectChanges();
+    let compiledTemplate = fixture.debugElement.nativeElement;
+    expect(compiledTemplate.querySelector('p')).toBeFalsy();
+  });
+
+
 });
