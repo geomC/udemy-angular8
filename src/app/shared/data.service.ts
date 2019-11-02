@@ -5,5 +5,14 @@ import { Injectable } from '@angular/core';
 })
 export class DataService {
 
-  constructor() { }
+  constructor() {
+  }
+
+  getDetails(): Promise<string> {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('data');
+      }, 1000);
+    });
+  }
 }

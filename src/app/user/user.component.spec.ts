@@ -1,7 +1,8 @@
-import { TestBed } from '@angular/core/testing';
+import { async, TestBed } from '@angular/core/testing';
 
 import { UserComponent } from './user.component';
 import { UserService } from './user.service';
+import { DataService } from '../shared/data.service';
 
 describe('UserComponent', () => {
   beforeEach(() => {
@@ -49,6 +50,19 @@ describe('UserComponent', () => {
     let compiledTemplate = fixture.debugElement.nativeElement;
     expect(compiledTemplate.querySelector('p')).toBeFalsy();
   });
+
+  it('should fetch data successfully', async(() => {
+    let fixture = TestBed.createComponent(UserComponent);
+    let app = fixture.debugElement // the element exposed to us for testing purposes
+      .componentInstance;
+    let dataService = fixture.debugElement.injector.get(DataService);
+    let spy = spyOn(dataService, 'getDetails') // run this async ..
+      .and.returnValue(Promise.resolve('Data')); // .. but mock the return data
+    fixture.detectChanges();
+    fixture.whenStable().then(() =>
+      expect(app.data).toBe('Data')
+    );
+  }));
 
 
 });
