@@ -6,5 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  content: any;
+
+  constructor() {
+    setTimeout(() => {
+      this.content = 'html paragraph';
+    }, 1000);
+  }
 
 }
