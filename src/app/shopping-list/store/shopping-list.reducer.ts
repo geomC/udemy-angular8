@@ -44,7 +44,7 @@ export function shoppingListReducer(
     case ShoppingListActions.DELETE_INGREDIENT:
       return {
         ...state,
-        ingredients: state.ingredients.filter((ing, index) => index !== (payload as { index: number, ingredient: Ingredient }).index)
+        ingredients: state.ingredients.filter((ing, index) => index !== (payload as number))
       };
       break;
     default:
