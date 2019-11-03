@@ -20,3 +20,6 @@ export class AddIngredients implements Action {
   ) {
   }
 }
+
+// export a union type --> a type that combines the props of the stated types
+export type ShoppingListActions = AddIngredient | AddIngredients;
