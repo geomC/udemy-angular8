@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Injector } from '@angular/core';
+import { createCustomElement } from '@angular/elements';
+import { AlertComponent } from './alert/alert.component';
 
 @Component({
   selector: 'app-root',
@@ -8,15 +10,26 @@ import { Component } from '@angular/core';
 export class AppComponent {
   content: any;
 
-  constructor() {
+  constructor(
+    injector: Injector
+  ) {
+    const AlertElement = createCustomElement(AlertComponent, { // configure the element..
+      // ..e.g. the injector
+      injector: injector
+    });
+    // Now we already have a custom element to use.
+
+    // the following code is just normal JavaScript:
+    // register the custom web component via customElements API
+
+    customElements.define(
+      'app-alert', // the tag
+      AlertElement
+    );
+
+    // now we are save to use the element
     setTimeout(() => {
-      // this is not rendered since the element is not known to the browser.
-      // At the time this is added to the dom, ng will not consider it for rendering.
       this.content = '<app-alert message="Rendered dynamically"></app-alert>';
-    }, 1000); // the timeout is just to simulate an async data flow, e.g. an api call
-
-    // this also won't work here
-    this.content = '<app-alert message="Rendered dynamically"></app-alert>';
+    }, 1000);
   }
-
 }
