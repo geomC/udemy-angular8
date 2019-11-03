@@ -25,6 +25,28 @@ export function shoppingListReducer(
         ingredients: [...state.ingredients, ...(payload as Ingredient[])]
       };
       break;
+    case ShoppingListActions.UPDATE_INGREDIENT:
+      const ingredient = state.ingredients[(payload as { index: number, ingredient: Ingredient }).index];
+      // workaround. not sure why but I need to deal with tsc complaining about props not found on the union type.
+      // no time to look into this now.
+      const pl = payload as { index: number, ingredient: Ingredient };
+      const updatedIngredient = {
+        ...ingredient,
+        ...pl.ingredient
+      };
+      const updatedIngredients = [...state.ingredients];
+      updatedIngredients[pl.index] = updatedIngredient;
+      return {
+        ...state,
+        ingredients: updatedIngredients
+      };
+      break;
+    case ShoppingListActions.DELETE_INGREDIENT:
+      return {
+        ...state,
+        ingredients: state.ingredients.filter((ing, index) => index !== (payload as { index: number, ingredient: Ingredient }).index)
+      };
+      break;
     default:
       return state;
   }
